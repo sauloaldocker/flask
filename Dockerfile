@@ -20,10 +20,13 @@ RUN     apt-get update  -y; \
 	apt-get install -y python-pip python-all python-dev python-scipy python-scitools python-numpy python-imaging python-simplejson python-cjson python-jsonpickle; \
 	apt-get clean all
 
-RUN     pip install --upgrade distribute; \
-	export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp; \
-	pip search flask- | cut -d" " -f1 | sort | xargs -I{} /bin/bash -c 'pip install {}; true'; \
-	pip install guess-language gunicorn sqlalchemy-migrate pytz flup sqlalchemy tornado
+RUN     pip install --upgrade distribute
+
+RUN	pip install guess-language gunicorn sqlalchemy-migrate pytz flup sqlalchemy tornado
+
+RUN	export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp; \
+	pip search flask- | cut -d" " -f1 | sort | xargs -I{} /bin/bash -c 'pip install {}; true';
+	
 
 #pip install flask flask-login flask-openid flask-mail flask-sqlalchemy flask-whooshalchemy flask-wtf flask-babel; \
 #RUN /bin/bash -c "pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -I{} /bin/bash -c 'pip install -U {}; true'"
